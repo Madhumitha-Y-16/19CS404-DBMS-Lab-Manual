@@ -38,128 +38,172 @@ HAVING condition;
 
 **Question 1**
 --
-What is the most common diagnosis among patients?
+```
+Write a SQL query to count the number of customers. Return number of customers.
 
-Sample table:MedicalRecords Table
-![image](https://github.com/user-attachments/assets/cb144231-d755-4408-8202-dafa08d37bd2)
+Sample table: customer
 
+customer_id |   cust_name    |    city    | grade | salesman_id 
+
+-------------+----------------+------------+-------+-------------
+
+        3002 | Nick Rimando   | New York   |   100 |        5001
+
+        3007 | Brad Davis     | New York   |   200 |        5001
+
+        3005 | Graham Zusi    | California |   200 |        5002
+
+ 
+
+For example:
+
+Result
+COUNT
+----------
+8
+```
 ```sql
-SELECT Diagnosis,
-   COUNT(*) AS DiagnosisCount
-FROM MedicalRecords
-GROUP BY Diagnosis
-ORDER BY DiagnosisCount DESC
-LIMIT 1;
+SELECT COUNT(customer_id) AS COUNT FROM customer;
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/3e67036d-281d-4c20-b19d-bafba7f96563)
+![image](https://github.com/user-attachments/assets/b9fb1c22-cd1f-42a6-9a87-1451cce9ea6a)
+
 
 **Question 2**
 ---
-How many appointments are scheduled for each patient?
-
-Sample table: Appointments Table
 ```
-name                  type
---------------------  ----------
-AppointmentID         INTEGER
-PatientID             INTEGER
-DoctorID              INTEGER
-AppointmentDateTime   DATETIME
-Purpose               TEXT
-Status                TEXT
+Write a SQL query to find the Fruit with the lowest available quantity.
+
+Note: Inventory attribute contains amount of fruits
+
+Table: fruits
+
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT
+unit        TEXT
+inventory   INTEGER
+price       REAL
+ 
+
+For example:
+
+Result
+fruit_name  lowest_quantity
+----------  ---------------
+Watermelon  15
+
 ```
 
 ```sql
-SELECT PatientID,
-COUNT(*) AS TotalAppointments
-FROM Appointments
-GROUP BY PatientID;
+SELECT name as fruit_name, min(inventory) as lowest_quantity from fruits;
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/acf11c5d-88ef-4213-989e-45badd33f6a8)
+![image](https://github.com/user-attachments/assets/79db83e5-65c9-432f-8e26-3a267c18c33e)
+
 
 **Question 3**
 ---
-How many patients have insurance coverage valid in each year?
-
-Sample table:Insurance Table
 ```
-name               type
------------------  ----------
-InsuranceID        INTEGER
-PatientID          INTEGER
-InsuranceCompany   TEXT
-PolicyNumber       TEXT
-PolicyHolder       TEXT
-ValidityPeriod     TEXT
+Write a SQL query that counts the number of unique salespeople. Return number of salespeople.
+
+Sample table: orders
+
+ord_no      purch_amt   ord_date    customer_id  salesman_id
+
+----------  ----------  ----------  -----------  -----------
+
+70001       150.5       2012-10-05  3005         5002
+
+70009       270.65      2012-09-10  3001         5005
+
+70002       65.26       2012-10-05  3002         5001
+
+ 
+
+For example:
+
+Result
+COUNT
+----------
+6
+
 ```
 
 ```sql
-SELECT strftime('%Y',ValidityPeriod) AS ValidityYear,
-COUNT(DISTINCT PatientID) AS TotalPatients
-FROM Insurance
-GROUP BY ValidityYear;
+select  count( distinct salesman_id ) as COUNT FROM orders;
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/de728464-fb3c-4fbf-b700-b459d7f12fc2)
+![image](https://github.com/user-attachments/assets/3fc4e20c-5e34-4878-b61d-4d3ba95ad5f8)
+
 
 **Question 4**
----
-Write a SQL query to find  how many employees work in California?
-
-Table: employee
 ```
-name        type
-----------  ----------
-id          INTEGER
-name        TEXT
-age         INTEGER
-city        TEXT
-income      INTEGER
-```
-
-```sql
-SELECT 
-COUNT(*) AS employees_in_california
-FROM employee
-WHERE city = 'California';
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/4483a528-2f11-417e-b41c-bb8c621da50d)
-
-**Question 5**
----
-Write a SQL query to find the total number of unique cities in the customer table?
+Write a SQL query to find the shortest email address in the customer table?
 
 Table: customer
-```
+
 name        type
 ----------  ----------
 id          INTEGER
-name        TEXT
+name        TEXT   
 city        TEXT
 email       TEXT
 phone       INTEGER
+For example:
+
+Result
+name        email           min_email_length
+----------  --------------  ----------------
+Ravi Kumar  ravi@gmail.com  14
+
 ```
 
 ```sql
-SELECT COUNT(DISTINCT city)
-AS unique_cities
-FROM customer;
+select name,email, min(length(email)) as min_email_length from customer;
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/609b436e-5b83-4848-9b09-d7c34fdb5edb)
+![image](https://github.com/user-attachments/assets/b0518f41-cfaf-4e22-8dbf-021bc1be57d5)
+
+
+**Question 5**
+
+```
+Write the SQL query that accomplishes the grouping of data by joining date (jdate), calculates the minimum work hours for each date, and excludes dates where the minimum work hour is not less than 10.
+
+Sample table: employee1
+```
+![image](https://github.com/user-attachments/assets/98725ead-209f-434c-9d60-a8f1977af9d6)
+
+```
+```
+For example:
+
+Result
+jdate       MIN(workhour)
+----------  -------------
+2002.0      9
+2004.0      9
+2006.0      9
+
+```
+select jdate, MIN(workhour) from employee1 
+group by jdate having MIN(workhour) < 10;
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/be2717a1-2ee6-4a84-858a-4ca7f3d5a17c)
+
 
 **Question 6**
 ---
