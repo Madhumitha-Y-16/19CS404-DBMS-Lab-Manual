@@ -54,15 +54,54 @@ ON table1.column = table2.column;
 
 **Question 1**
 --
--- Paste Question 1 here
+--From the following tables write a SQL query to find those customers with a grade less than 300. Return cust_name, customer city, grade, Salesman, salesmancity. The result should be ordered by ascending customer_id. 
+
+Sample table: customer
+
+ customer_id |   cust_name    |    city    | grade | salesman_id 
+-------------+----------------+------------+-------+-------------
+        3002 | Nick Rimando   | New York   |   100 |        5001
+        3007 | Brad Davis     | New York   |   200 |        5001
+        3005 | Graham Zusi    | California |   200 |        5002
+        3008 | Julian Green   | London     |   300 |        5002
+        3004 | Fabian Johnson | Paris      |   300 |        5006
+        3009 | Geoff Cameron  | Berlin     |   100 |        5003
+        3003 | Jozy Altidor   | Moscow     |   200 |        5007
+        3001 | Brad Guzan     | London     |       |        5005
+Sample table: salesman
+
+ salesman_id |    name    |   city   | commission 
+-------------+------------+----------+------------
+        5001 | James Hoog | New York |       0.15
+        5002 | Nail Knite | Paris    |       0.13
+        5005 | Pit Alex   | London   |       0.11
+        5006 | Mc Lyon    | Paris    |       0.14
+        5007 | Paul Adam  | Rome     |       0.13
+        5003 | Lauson Hen | San Jose |       0.12
+For example:
+
+Result
+cust_name        city             grade            Salesman         city
+---------------  ---------------  ---------------  ---------------  ----------
+Brad Guzan       London           100              Pit Alex         London
+Nick Rimando     Chennai          100              Bob Emily        New York
+Jozy Altidore    Moscow           200              Paul Adam        Rome
+Graham Zusi      California       200              Nail Knite       Paris
+Brad Davis       New York         200              Bob Emily        New York
+Geoff Cameron    Berlin           100              Lauson Hen       San Jose
+
+
+
 
 ```sql
--- Paste your SQL code below for Question 1
+-- select c.cust_name,c.city,c.grade,s.name as Salesman, s.city
+from customer c
+join salesman s on s.salesman_id = c.salesman_id
+where c.grade < 300
+order by c.customer_id asc;
 ```
 
 **Output:**
-
-![Output1](output.png)
 
 **Question 2**
 ---
