@@ -104,227 +104,299 @@ CREATE TABLE Table_Name (
 ```
 
 **Question 1**
---
-Create a table named Department with the following constraints:
-- DepartmentID as INTEGER should be the primary key.
-- DepartmentName as TEXT should be unique and not NULL.
-- Location as TEXT.
+```
+Write an SQL query to add two new columns, designation and net_salary, to the table Companies. The designation column should have a data type of varchar(50), and the net_salary column should have a data type of number.
+
+For example:
+
+Test	Result
+pragma table_info('Companies');
+cid         name        type        notnull     dflt_value  pk
+----------  ----------  ----------  ----------  ----------  ----------
+0           id          int         0                       0
+1           name        varchar(50  0                       0
+2           address     text        0                       0
+3           email       varchar(50  0                       0
+4           phone       varchar(10  0                       0
+5           designatio  varchar(50  0                       0
+6           net_salary  number      0                       0
+```
 
 ```sql
-SQL CODE
-CREATE TABLE Department(
-DepartmentID INTEGER PRIMARY KEY,
-DepartmentName TEXT UNIQUE NOT NULL,
-Location TEXT
-);
+ALTER TABLE Companies
+ADD COLUMN designation varchar(50);
+
+alter table Companies
+ADD COLUMN net_salary number;
+```
+
+**Output:**
+![image](https://github.com/user-attachments/assets/ff09cad4-26d9-4feb-89c3-0eeb14bf4831)
+
+
+**Question 2**
+```
+Create a table named Invoices with the following constraints:
+InvoiceID as INTEGER should be the primary key.
+InvoiceDate as DATE.
+Amount as REAL should be greater than 0.
+DueDate as DATE should be greater than the InvoiceDate.
+OrderID as INTEGER should be a foreign key referencing Orders(OrderID).
+For example:
+
+Test	Result
+INSERT INTO Orders (OrderID, OrderDate, CustomerID) VALUES (1, '2024-08-01', 1);
+INSERT INTO Invoices (InvoiceID, InvoiceDate, Amount, DueDate, OrderID) VALUES (1, '2024-08-01', 100.0, '2024-09-01', 1);
+SELECT * FROM Invoices;
+InvoiceID   InvoiceDate  Amount      DueDate     OrderID
+----------  -----------  ----------  ----------  ----------
+1           2024-08-01   100.0       2024-09-01  1
+```
+
+```sql
+create table Invoices(
+    InvoiceID INTEGER PRIMARY KEY,
+    InvoiceDate DATE,
+    Amount REAL CHECK(Amount > 0),
+    DueDate DATE CHECK(DueDate > InvoiceDate),
+    OrderID INTEGER,
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID));
+```
+
+**Output:**
+![image](https://github.com/user-attachments/assets/e60b88da-d247-4ac8-8e2f-d4690e55fcd9)
+
+
+**Question 3**
+```
+Create a new table named contacts with the following specifications:
+contact_id as INTEGER and primary key.
+first_name as TEXT and not NULL.
+last_name as TEXT and not NULL.
+email as TEXT.
+phone as TEXT and not NULL with a check constraint to ensure the length of phone is at least 10 characters.
+For example:
+
+Test	Result
+INSERT INTO contacts (contact_id, first_name, last_name, email, phone) VALUES (1, 'John', 'Doe', 'john.doe@example.com', '1234567890');
+SELECT * FROM contacts;
+
+```
+
+```sql
+create table contacts(
+        contact_id INTEGER PRIMARY KEY,
+        first_name TEXT NOT NULL,
+        last_name TEXT NOT NULL,
+        email TEXT,
+        phone TEXT NOT NULL CHECK(length(phone)= 10));
+```
+
+**Output:**
+![image](https://github.com/user-attachments/assets/f8426231-418a-4aa8-8722-2468b30b0c68)
+
+
+**Question 4**
+```
+Insert the below data into the Student_details table, allowing the Subject and MARKS columns to take their default values.
+
+RollNo      Name          Gender      
+----------  ------------  ----------  
+204         Samuel Black  M          
+
+Note: The Subject and MARKS columns will use their default values.
+ 
+For example:
+
+Test	Result
+SELECT RollNo, Name, Gender 
+FROM Student_details 
+WHERE RollNo = 204;
+
+
+RollNo      Name          Gender
+----------  ------------  ----------
+204         Samuel Black  M
+
+```
+```sql
+INSERT INTO Student_details(RollNo, Name, Gender)
+values (204, 'Samuel Black', 'M');
+```
+
+**Output:**
+![image](https://github.com/user-attachments/assets/8cd408c1-2f34-4147-9de3-b3e236fb2b4d)
+
+
+**Question 5**
+```
+Create a table named Products with the following constraints:
+ProductID as INTEGER should be the primary key.
+ProductName as TEXT should be unique and not NULL.
+Price as REAL should be greater than 0.
+StockQuantity as INTEGER should be non-negative.
+For example:
+
+Test	Result
+INSERT INTO Products (ProductID, ProductName, Price, StockQuantity) VALUES (1, 'Laptop', 999.99, 10);
+select * from Products;
+ProductID   ProductName  Price       StockQuantity
+----------  -----------  ----------  -------------
+1           Laptop       999.99      10
+```
+
+```sql
+CREATE TABLE Products(
+        ProductID INTEGER PRIMARY KEY,
+        ProductName TEXT UNIQUE NOT NULL,
+        Price REAL CHECK(Price > 0),
+        StockQuantity INTEGER CHECK(StockQuantity >= 0));
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/131868f0-66a8-4b8e-99a6-4028b8f11e9d)
+![image](https://github.com/user-attachments/assets/57e2de1f-7f6d-454a-a718-799b2b5221c8)
 
-**Question 2**
----
-In the Books table, insert a record where some fields are NULL, another record where all fields are filled without any NULL values, and a third record where some fields are filled, and others are left as NULL.
+**Question 6**
 ```
+Insert all products from Discontinued_products into Products.
+
+Table attributes are ProductID, ProductName, Price, Stock
+
+For example:
+
+Test	Result
+select * from Products;
+ProductID   ProductName     Price       Stock
+----------  --------------  ----------  ----------
+101         Old Smartphone  199.99      0
+102         Vintage Laptop  399.99      10
+103         Classic Tablet  149.99      5
+
+```
+
+```sql
+INSERT INTO Products(ProductID, ProductName, Price, Stock)
+select * from Discontinued_products;
+```
+
+**Output:**
+
+
+**Question 7**
+```
+Create a table named Orders with the following columns:
+
+OrderID as INTEGER
+OrderDate as TEXT
+CustomerID as INTEGER
+For example:
+
+Test	Result
+pragma table_info('Orders');
+cid   name        type        notnull     dflt_value  pk
+----  ----------  ----------  ----------  ----------  ----------
+0     OrderID     INTEGER     0                       0
+1     OrderDate   TEXT        0                       0
+2     CustomerID  INTEGER     0                       0
+
+```
+
+```sql
+CREATE TABLE Orders(
+        OrderID INTEGER,
+        OrderDate TEXT,
+        CustomerID INTEGER);
+```
+
+**Output:**
+![image](https://github.com/user-attachments/assets/27739b56-4b83-40e2-ba82-4fe8922cde90)
+
+
+**Question 8**
+```
+Write an SQL command can to add a column named email of type TEXT to the customers table
+
+For example:
+
+Test	Result
+pragma table_info('Customers');
+cid         name        type        notnull     dflt_value  pk
+----------  ----------  ----------  ----------  ----------  ----------
+0           id          integer     0                       0
+1           name        text        0                       0
+2           email       TEXT        0                       0
+
+```
+
+```sql
+ALTER TABLE Customers
+add column email TEXT;
+```
+
+**Output:**
+![image](https://github.com/user-attachments/assets/dbd2adf0-707b-476b-a508-28d3505438db)
+
+
+**Question 9**
+```
+In the Books table, insert a record where some fields are NULL, another record where all fields are filled without any NULL values, and a third record where some fields are filled, and others are left as NULL.
+
 ISBN             Title                      Author           Publisher   Year
 ---------------  -------------------------  ---------------  ----------  ----------
 978-1234567890   Introduction to AI         John Doe
 978-9876543210   Deep Learning              Jane Doe         TechPress   2022
 978-1122334455   Cybersecurity Essentials   Alice Smith                  2021
+For example:
+
+Test	Result
+SELECT * FROM Books;
+ISBN             Title                      Author           Publisher   Year
+---------------  -------------------------  ---------------  ----------  ----------
+978-1234567890   Introduction to AI         John Doe
+978-9876543210   Deep Learning              Jane Doe         TechPress   2022
+978-1122334455   Cybersecurity Essentials   Alice Smith                  2021
+
 ```
 
 ```sql
-SQL CODE
-INSERT INTO Books (ISBN,Title,Author)
-VALUES('978-1234567890','Introduction to AI','John Doe'); 
-INSERT INTO Books (ISBN,Title,Author,Publisher,Year)
-VALUES('978-9876543210','Deep Learning','Jane Doe','TechPress','2022');
-INSERT INTO Books (ISBN,Title,Author,Year) 
-VALUES('978-1122334455','Cybersecurity Essentials','Alice Smith','2021');
+INSERT INTO Books(ISBN,Title,Author,Publisher,Year)
+values ('978-1234567890','Introduction to AI','John Doe','',''),
+        ('978-9876543210','Deep Learning','Jane Doe','TechPress','2022'),
+        ('978-1122334455', 'Cybersecurity Essentials', 'Alice Smith','', '2021');
 ```
 
 **Output:**
+![image](https://github.com/user-attachments/assets/03b615fc-fe25-46e2-b6ad-628414db6a9f)
 
-![image](https://github.com/user-attachments/assets/e95674a2-8a12-4f6d-bc9b-71a3b30fe466)
-
-**Question 3**
----
-Create a new table named item with the following specifications and constraints:
-```
-1.item_id as TEXT and as primary key.
-2.item_desc as TEXT.
-3.rate as INTEGER.
-4.icom_id as TEXT with a length of 4.
-5.icom_id is a foreign key referencing com_id in the company table.
-6.The foreign key should cascade updates and deletes.
-7.item_desc and rate should not accept NULL.
-```
-
-```sql
-SQL CODE
-CREATE TABLE item(
-item_id TEXT PRIMARY KEY,
-item_desc TEXT NOT NULL,
-rate INTEGER NOT NULL,
-icom_id TEXT CHECK(length(icom_id)=4),
-FOREIGN KEY (icom_id) REFERENCES company(com_id)
-ON UPDATE CASCADE
-ON DELETE CASCADE
-);
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/d7d808cd-531c-4bc0-a3e8-9fc7d50e265e)
-
-**Question 4**
----
-Write a SQL query to Add a new column State as text in the Student_details table.
-Sample table: Student_details
-```
-
- cid              name             type   notnull     dflt_value  pk
----------------  ---------------  -----  ----------  ----------  ----------
-0                RollNo           int    0                       1
-1                Name             VARCH  1                       0
-2                Gender           TEXT   1                       0
-3                Subject          VARCH  0                       0
-4                MARKS            INT (  0                       0
-```
-
-```sql
-SQL CODE
-ALTER TABLE Student_details
-ADD COLUMN State TEXT;
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/1530aa7c-f583-4515-afa8-f45f54d5f3b6)
-
-**Question 5**
----
-Insert a new product with ProductID 101, Name Laptop, Category Electronics, Price 1500, and Stock 50 into the Products table.
-
-```sql
-SQL CODE
-INSERT INTO Products(ProductID, Name, Category,Price,Stock)
-VALUES(101,'Laptop','Electronics', 1500, 50);
-
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/386e6a61-da50-4fdf-bff1-f9be2d2fd41b)
-
-**Question 6**
----
-Create a table named Locations with the following columns:
-
-- LocationID as INTEGER
-- LocationName as TEXT
-- Address as TEXT
-
-```sql
-SQL CODE
-CREATE TABLE Locations(
-LocationID INTEGER,
-LocationName TEXT,
-Address TEXT
-);
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/a6b4ffb4-8566-4a28-8abf-56bad07705a4)
-
-**Question 7**
----
-Insert all customers from Old_customers into Customers
-Table attributes are CustomerID, Name, Address, Email
-
-```sql
-SQL CODE
-INSERT INTO Customers(CustomerID, Name, Address, Email)
-SELECT CustomerID, Name, Address, Email 
-FROM Old_customers;
-
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/33bdd1f8-340e-47e8-918d-6f7240d91199)
-
-**Question 8**
----
-Write a SQL query to Add a new column named "discount" with the data type DECIMAL(5,2) to the "customer" table.
-Sample table: customer
-```
- customer_id |   cust_name    |    city    | grade | salesman_id 
--------------+----------------+------------+-------+-------------
-        3002 | Nick Rimando   | New York   |   100 |        5001
-        3007 | Brad Davis     | New York   |   200 |        5001
-        3005 | Graham Zusi    | California |   200 |        5002
-```
-
-```sql
-SQL CODE
-ALTER TABLE customer
-ADD COLUMN discount DECIMAL(5,2);
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/aaa5683b-4d7e-41b5-bc0c-ef1fb1ac328d)
-
-**Question 9**
----
-Create a table named ProjectAssignments with the following constraints:
-- AssignmentID as INTEGER should be the primary key.
-- EmployeeID as INTEGER should be a foreign key referencing Employees(EmployeeID).
-- ProjectID as INTEGER should be a foreign key referencing Projects(ProjectID).
-- AssignmentDate as DATE should be NOT NULL.
-
-```sql
-SQL CODE
-CREATE TABLE ProjectAssignments(
-AssignmentID INTEGER PRIMARY KEY,
-EmployeeID INTEGER,
-ProjectID INTEGER,
-AssignmentDate DATE NOT NULL,
-FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID),
-FOREIGN KEY (ProjectID) REFERENCES Projects(ProjectID) 
-);
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/994a592f-f7e8-45e8-90ce-a50478105b6a)
 
 **Question 10**
----
-Create a new table named contacts with the following specifications:
-- contact_id as INTEGER and primary key.
-- first_name as TEXT and not NULL.
-- last_name as TEXT and not NULL.
-- email as TEXT.
-- phone as TEXT and not NULL with a check constraint to ensure the length of phone is at least 10 characters.
+```
+Create a table named Orders with the following constraints:
+OrderID as INTEGER should be the primary key.
+OrderDate as DATE should be not NULL.
+CustomerID as INTEGER should be a foreign key referencing Customers(CustomerID).
+For example:
 
+Test	Result
+INSERT INTO Customers (CustomerID, FirstName, LastName, Email) VALUES (1, 'Alice', 'Johnson', 'alice.johnson@example.com');
+INSERT INTO Orders (OrderID, OrderDate, CustomerID) VALUES (1, '2024-08-01', 1);
+select * from orders;
+OrderID     OrderDate   CustomerID
+----------  ----------  ----------
+1           2024-08-01  1
+```
 ```sql
-SQL CODE
-CREATE TABLE contacts(
-contact_id INTEGER PRIMARY KEY,
-first_name TEXT NOT NULL,
-last_name  NOT NULL,
-email TEXT,
-phone TEXT NOT NULL CHECK (length(phone) >= 10)
-);
+CREATE TABLE Orders(
+        OrderID INTEGER PRIMARY KEY,
+        OrderDate DATE NOT NULL,
+        CustomerID INTEGER,
+        FOREIGN KEY(CustomerID) REFERENCES Customers(CustomerID));
 ```
 
 **Output:**
+![image](https://github.com/user-attachments/assets/d7b4a873-8f2f-4c1f-be6d-c297d1aa9ad9)
 
-![image](https://github.com/user-attachments/assets/da798bcc-7895-4df9-9afd-2df8f9736ef0)
 
 
 ## RESULT
