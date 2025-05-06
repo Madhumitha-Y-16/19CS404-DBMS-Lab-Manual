@@ -524,6 +524,10 @@ where o.purch_amt < 100;
 
 ![image](https://github.com/user-attachments/assets/40669ca2-56b4-4660-9cb6-7db2ad047aed)
 
+### SCREENSHOT OF SEB MODULE COMPLETION:
+![{C74FB1CC-6ACE-4CED-977F-7541C9EB465E}](https://github.com/user-attachments/assets/5b4fdbd8-59d3-42c4-9b46-5f0a63529e85)
+
+
 
 
 ## RESULT
