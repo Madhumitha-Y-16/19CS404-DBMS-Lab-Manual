@@ -397,6 +397,8 @@ CREATE TABLE Orders(
 **Output:**
 ![image](https://github.com/user-attachments/assets/d7b4a873-8f2f-4c1f-be6d-c297d1aa9ad9)
 
+### SCREENSHOT OF SEB MODULE COMPLETION:
+![Screenshot (60)](https://github.com/user-attachments/assets/4224b851-ca81-4284-a325-f2da403f5252)
 
 
 ## RESULT
