@@ -351,6 +351,10 @@ WHERE city = 'Paris'
 
 ![image](https://github.com/user-attachments/assets/3a48d1ed-d615-419f-a7ba-bd66a1cea5d9)
 
+### SCREENSHOT OF SEB MODULE COMPLETION:
+![{87A6934B-AC7C-453A-B3A3-343528B98C6F}](https://github.com/user-attachments/assets/f56feafe-56e3-48e4-9aec-e60810a01ec8)
+
+
 
 ## RESULT
 Thus, the SQL queries to implement subqueries and views have been executed successfully.
