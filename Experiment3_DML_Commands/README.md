@@ -349,6 +349,10 @@ from Calculations;
 
 ![image](https://github.com/user-attachments/assets/7545d60d-27c6-4a54-91ca-6048ffe6d31d)
 
+### SCREENSHOT OF SEB MODULE COMPLETION:
+![{CEC1A639-4107-4EBA-B77D-845D12DBD686}](https://github.com/user-attachments/assets/a750ba9b-0425-4c8d-91f7-7fb307ec69f7)
+
+
 
 ## RESULT
 Thus, the SQL queries to implement DML commands have been executed successfully.
