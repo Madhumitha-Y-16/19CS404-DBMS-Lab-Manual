@@ -319,6 +319,10 @@ ORDER BY jdate;
 
 ![image](https://github.com/user-attachments/assets/76bdd1a0-44a9-4517-944f-135e00bc50a7)
 
+### SCREENSHOT OF SEB MODULE COMPLETION:
+![{5B56F494-9583-452E-97AE-21ED044FEE82}](https://github.com/user-attachments/assets/d0a86b8d-d40d-4b8f-a4d6-055a0b0cb45a)
+
+
 
 ## RESULT
 Thus, the SQL queries to implement aggregate functions, GROUP BY, and HAVING clause have been executed successfully.
